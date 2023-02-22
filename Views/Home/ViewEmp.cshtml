@@ -1,0 +1,209 @@
+﻿
+@model EmployeeTwo.ViewModels.EmpModelyoo1
+@{
+    var skill1 = @ViewBag.Skill;
+} 
+
+<script>
+     function prevAjax(item1,item2) {
+        var id = { prenex: item1,last:item2 };
+        $.ajax({
+            url: "/Home/ViewEmp",
+            type: "POST",
+
+            data: id,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+
+            success: function(e) {
+                debugger
+                //  var hiddenInput = $(e).find('#EmployeePersonId');
+
+        
+                //   $('#EmployeePersonId').val(hiddenInput.val());
+
+                  // var indexInput = $(e).find('#Index');
+
+        
+                  // $('#Index').val(indexInput.val());
+
+                    let dataId = $(e).find("#detail").html();
+                        $("#detail").html(dataId);
+
+
+
+
+            },
+             error: function(xhr, status) {
+                 debugger
+                console.log("error")
+                console.log(xhr.responseText);
+
+            }
+        });
+    }
+
+</script>
+
+<div class=" border border-3 border-info container" style="margin:10px" id="display" >
+<div style="text-align:center;margin-top : 50px;background-color:darkgrey;font-size:20px" ><b>Detail of Employee</b><br /></div> 
+<div style="margin-top:20px" id="changeEmp" >
+   <form style="margin-top : 50px" >
+<div class="container" id="detail">
+        <div class="row ">
+            <div class="col ">
+                <div style="display:flex;margin-top:15px">
+                    
+                    <input class="form-control" asp-for="EmployeePersonId"  id="EmployeePersonId" type="hidden" />
+                </div>
+                <div style="display:flex;margin-top:15px">
+                    <label class="form-label" style="margin-right:10px" asp-for="FirstName" ></label>
+                    <input class="form-control" asp-for="FirstName" id="FirstName"  readonly />
+                </div>
+                <div style="display:flex;margin-top:15px">
+                    <label class="form-label" style="margin-right:10px" asp-for="DepartmentName" ></label>
+                    <input class="form-control" asp-for="DepartmentName" id="DepartmentName"  readonly />
+                </div>
+                
+                
+                 
+                 <div class="row mt-2">
+                    <div class="col-6">
+                        <label class="form-label" style="margin-right:10px"> Gender</label>
+                            @{
+                                if(@Model.Gender== "Male")
+                                {
+                                                                                            <input type="radio"  name="Gender"   value="Male" checked disabled>
+                                                                                            <label>Male</label>
+                                }else
+                                {
+                                                                                           <input type="radio"  name="Gender"   value="Male" disabled>
+                                                                                            <label>Male</label>
+                                }
+                                if(@Model.Gender=="Female")
+                                {
+                                                                                           <input type="radio" name="Gender"  value="Female" checked disabled>
+                                                                                            <label >Female</label>
+                                }else
+                                {
+                                                                                             <input type="radio" name="Gender"  value="Female" disabled>
+                                                                                            <label >Female</label>
+                                }
+                            }
+               
+                       @* <input type="radio"  name="Gender"   value="Male" disabled>
+                        <label>Male</label>
+
+                        <input type="radio" name="Gender"  value="Female" disabled>
+                        <label >Female</label>*@
+                    </div>
+                    </div>
+                     <div style="display:flex;margin-top:15px">
+                    <label class="form-label" style="margin-right:10px" asp-for="DOB" ></label>
+                    <input class="form-control" asp-for="DOB" id="DOB" readonly/>
+                </div>
+             
+                
+            </div>
+             <div class="col ">
+                 <div style="display:flex;margin-top:15px">
+                   @* <label class="form-label" style="margin-right:10px">Search Result </label>*@
+                    <input class="form-control" asp-for="Index"  id="Index"  id="hidden" type="hidden"/>
+                </div>
+                  <div style="display:flex;margin-top:15px">
+                    <label class="form-label" style="margin-right:10px" asp-for="LastName" ></label>
+                    <input class="form-control" asp-for="LastName" id="LastName" readonly/>
+
+                </div>
+                <div style="display:flex;margin-top:15px">
+                    <label class="form-label" style="margin-right:10px" asp-for="DesignationName" ></label>
+                    <input class="form-control" asp-for="DesignationName" id="DesignationName"  readonly />
+                </div>
+                <div style="display:flex;margin-top:15px"> 
+                    <label class="form-label" style="margin-right:10px"> Skill </label>
+                    <br />
+
+                        @{
+                            foreach(var skil in @ViewBag.Skill)
+                            {   var flag = false;
+                                                                                                            @foreach(var sk in Model.Skills)
+                                {   
+                                    if(skil.SkillName == sk)
+                                    {
+                                        flag = true;
+                                                                                                                    <input type="checkbox" value=@skil.SkillName checked="checked" disabled />
+                                                                                                                    <label >@skil.SkillName</label>  
+                                        
+                                    }
+                                }
+                                if(flag)
+                                {
+                                    continue;
+                                }
+                                                                                                             <input type="checkbox" value=@skil.SkillName disabled/>
+                                                                                                                    <label>@skil.SkillName</label>   
+                            }
+                        }
+                </div>
+
+                  <div style="display:flex;margin-top:15px">
+                    <label  class="form-label" style="margin-right:10px" asp-for="DOJ"></label>
+                    <input class="form-control" asp-for="DOJ" id="DOJ" readonly/>
+                </div>
+             
+
+                
+
+
+            @*
+                <div>  <label> Skills </label>
+                    <br />
+
+                        @{
+                            foreach(var skill in Skills)
+                            {  
+                                        
+                                                <input type="checkbox" name="Skill"  value=@skill />
+                                                <label >@skill</label>  
+                             }
+                        }
+
+                        
+                </div>*@
+            
+  
+    
+   
+
+            </div>
+
+            
+        </div>
+        
+      
+         </div>
+        @* <div> 
+            <span><button style="margin-right:100px;margin-left:200px"   onclick="prevAjax('prev',@Model.Index)"> PrevAjax</button></span>
+         </div>*@
+    </form>
+
+
+    
+ </div>
+
+ <div style="margin-top:50px;margin-bottom:8px;">
+            <span><button class="btn btn-space" style="float:left;background-color:black;border-color:darkblue;position:relative;left:0%" ><a style="text-decoration:none;color:white" asp-action="Back" asp-controller="Home" > Back</a></button></span>
+        
+            <span><button class="btn btn-space" style="background-color:darkgrey;border-color:cornflowerblue;position:relative;left:50%"    ><a style="text-decoration:none;color:darkblue" asp-action="ViewEmp" asp-controller="Home" asp-route-prenex="prev" asp-route-last="@Model.Index" >Prev</a></button></span>
+            <span><button class="btn btn-space" style="background-color:darkgrey;border-color:cornflowerblue;position:relative;left:25%"    ><a style="text-decoration:none;color:darkblue" asp-action="ViewEmp" asp-controller="Home" asp-route-prenex="next" asp-route-last="@Model.Index" >Next</a></button></span>
+
+    
+             <span><button class="btn btn-space" style="float:right;background-color:black;border-color:darkcyan;position:relative"><a style="text-decoration:none;color:white" asp-action="Index" asp-controller="Home" > Home</a></button></span>
+         @* <span><button style="margin-right:100px;margin-left:200px"  type="submit" id="prev"   onclick="prev(`prev`,@Model.Index)">< Prev</button></span>
+ 
+  <span><button style="margin-right:200px;margin-left:100px" type="submit" id="next"> Next</button></span>
+       <span><button style="float:right"><a href="javascript:void(0);" onclick="history.go(-1);"> Home</a></button></span>*@
+
+    
+</div>
+
+    </div>

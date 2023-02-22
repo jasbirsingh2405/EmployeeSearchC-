@@ -1,0 +1,303 @@
+﻿@model EmployeeTwo.ViewModels.EmpDepDesSki
+<script>
+          
+
+         
+
+
+
+
+     function view(item) 
+     {
+        debugger
+        var id = { empId: item }; 
+        
+       
+        debugger
+
+        $.ajax({
+            url: "/Home/ViewEmp",
+            type: "POST",
+           
+            data: id,
+            
+
+            success: function(e) {
+                debugger
+               
+                    $("#EmployeePersonId").val(e.personId);
+                debugger
+                console.log(e);
+               // var obj = $.parseJSON(e);
+              //  var e = obj;
+              //  console.log(obj);
+                // $("#EmployeePersonId").val(obj.PersonId);
+                //  $("#FirstName").val(obj.FirstName);
+                //   $("#LastName").val(obj.LastName);
+                 //   $("#DOB").val(obj.DOB);
+                  //   $("#DOJ").val(obj.DOJ);
+                   //   $("#Salary").val(obj.Salary);
+                       
+                     //  $("#DepartmentName").val(obj.DepartmentName);
+                     //  $("#DesignationName").val(obj.DesignationName);
+                      // $("input[name=Gender]").prop('checked', true);
+              //  var val = obj.Gender;
+              //  console.log(obj.skill.length);
+               // $(`input:radio[name=Gender][value=${val}]`).attr('checked', true);
+               
+
+               // $.each( obj.skill, function( key, value ) {
+             // $(`input:checkbox[name=Skill][value=${value}]`).attr('checked', true);
+                  ///   });
+
+
+                     debugger
+               
+                   // console.log("hello")
+                       
+                       
+                        let dataId = $(e).find("#display").html();
+                        $("#display").html(dataId);
+                        
+                  
+                        
+                        
+                        //$('body').html(data);
+                   
+               
+                   
+
+
+            }
+        });
+    };
+
+
+
+</script>
+
+<div >
+
+    <div class=" border border-3 border-info container" style="margin:10px" id="SearchDiv" style="">
+
+
+        <div style="text-align:center;margin-top : 50px;background-color:lightsteelblue;font-size:30px">
+            <b>Search Form</b>
+            <br />
+        </div>
+        <div style="margin-top:20px">
+            <form id="searchForm">
+                <div class="container">
+               
+                    <div class="row  ">
+                        <div class="col  ">
+                            <div style="display:flex;margin-top:15px" >
+                                <label class="form-label" style="margin-right:10px"asp-for="EmployeePerson.FirstName"></label>
+                                <input class="form-control" asp-for="EmployeePerson.FirstName" />
+                       
+                            </div>
+                    
+                            <div style="display:flex;margin-top:15px">
+                                <label style="margin-right:10px" class="form-label">Designation</label>
+                                @*<select class="form-control" asp-for=DesignationId asp-items="@(new SelectList(Model.Designation,"DesignationId" ,"DesignationName"))">*@
+                                     <select class="form-control" asp-for=DesignationId asp-items="@(new SelectList(Model.Designation,"DesignationId" ,"DesignationName"))">
+                                    <option value="" style="text-align:center">------------Select Designation---------------</option>
+                                </select>
+                       
+
+
+                            </div>
+                   
+                    
+                            <div class="row ">
+                            <div class="col">
+                                <div style="display:flex;margin-top:15px">
+                                <label class="form-label" style="margin-right:10px"> Gender</label>
+                                
+                                        @{
+                                            if (@Model.EmployeePerson.Gender == "Male")
+                                            {
+                                                <input type="radio"  name="Gender"   value="Male" checked >
+                                                <label class="form-label" style="margin-right:10px">Male</label>
+                                            }else
+                                            {
+                                                <input type="radio"  name="Gender"   value="Male"  >
+                                                <label class="form-label" style="margin-right:10px">Male</label>
+                                            }
+                                        }
+                                
+                                          @{
+                                            if (@Model.EmployeePerson.Gender == "Female")
+                                            {
+                                                <input type="radio"  name="Gender"   value="Female" checked >
+                                                <label class="form-label" style="margin-right:10px">Female</label>
+                                            }else
+                                            {
+                                                <input type="radio"  name="Gender"   value="Female"  >
+                                                <label class="form-label" style="margin-right:10px">Female</label>
+                                            }
+                                        }
+                               
+
+                                @*<input type="radio"  name="Gender"  value="Female" >
+                                <label class="form-label" style="margin-right:10px">Female</label>*@
+                                </div>
+                            </div>
+                            </div>
+                   
+                        </div>
+                        <div class="col ">
+                   
+                             <div style="display:flex;margin-top:5px">
+                                <label class="form-label" style="margin-right:10px" asp-for="EmployeePerson.LastName"></label>
+                                <input class="form-control" asp-for="EmployeePerson.LastName" />
+                        
+                            </div>
+
+                            <div style="display:flex;margin-top:15px">   
+                                <label class="form-label"style="margin-right:10px" >Department</label>
+                                @*<select class="form-control" asp-for="DepartmentName" asp-items="@(new SelectList(Model.Department,"DepartmentName" ,"DepartmentName"))">*@
+                                    <select class="form-control" asp-for="DepartmentId" asp-items="@(new SelectList(Model.Department,"DepartmentId" ,"DepartmentName"))">
+                                    <option value=""  style="text-align:center">-------------Select Department------------</option>
+                                </select>
+                        
+
+                            </div>
+
+                        </div>
+
+
+                     </div>
+           
+                    
+
+                
+               </div>
+           
+             </form>
+
+              @*  <div class="" style="margin-top:5px;margin-bottom:8px" >
+                            <input type="button"  value="Search" id="Search" class="btn btn-info " />
+                            <input type="button" value="ExactSearch" id="ExactSearch" class="btn btn-dark" />
+
+                         </div>*@
+                         <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top:5px;margin-bottom:8px" >
+                            <input type="button"  value="Search" id="Search" class="btn btn-info me-md-2 " />
+                            <input type="button" value="ExactSearch" id="ExactSearch" class="btn btn-dark" />
+
+                         </div>
+               
+        </div>
+       @* </div>
+    
+    <div  class=" border border-3 border-info container" style="margin:10px">*@
+         <div style="text-align:center;margin-top : 50px;background-color:darkgrey;font-size:20px">
+            <b>Search Result</b>
+            <br />
+        </div>
+    <div id="tableList" >
+    
+         <table  class="table table-success table-striped" style="margin-top:40px;text-align:center" id="tableList">
+        <tr>
+            <th style="color:cornflowerblue" >Action</th>
+            <th style="color:cornflowerblue">Employee Id </th>
+            <th style="color:cornflowerblue">First Name </th>
+            <th style="color:cornflowerblue">Last Name </th>
+            <th style="color:cornflowerblue">DOB</th>
+            <th style="color:cornflowerblue">Salary</th>
+            <th style="color:cornflowerblue">Department</th>
+            <th style="color:cornflowerblue">Designation</th>
+            <th style="color:cornflowerblue">Skill</th>
+            
+        </tr>
+        @foreach (var ski in Model.EmpModelyoo1)
+        {
+            <tr>
+                <td>
+                    @*//<button style="color:burlywood" id="View" onclick=view(@ski.EmployeePersonId)>View</button>*@
+                                        <button style="background-color:lightcyan;border-color:cornflowerblue" id="View" ><a asp-controller="Home" asp-action="ViewEmp" asp-route-empId="@ski.EmployeePersonId" style="text-decoration:none;color:darkgoldenrod"> View</a></button>
+
+                </td>
+                <td>@ski.EmployeePersonId</td>
+                <td style="text-align:center">@ski.FirstName</td>
+                <td style="text-align:center">@ski.LastName</td>
+                <td style="text-align:center">@ski.DOB</td>
+                <td style="text-align:center">@ski.Salary</td>
+                <td style="text-align:center">@ski.DepartmentName</td>
+                <td style="text-align:center">@ski.DesignationName</td>
+                <td style="text-align:center">@ski.skillConcat</td>
+                
+              
+               
+            </tr>
+        }
+    </table>
+    </div>
+    </div>
+    
+</div>
+
+
+
+
+
+<script>
+$(document).ready(function() {
+    $('#Search').click(function() {
+        //var name = $("#searchForm").searialize();
+        debugger
+
+        $.ajax({
+            url: "/Home/search",
+            type: "POST",
+            //dataType: 'json',
+            data: $("#searchForm").serialize(),
+            //  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+
+            success: function(data) {
+                debugger
+               
+                    console.log("hello")
+                   // debugger;
+                    //$.get("/Home/Index", function(data1) {
+                     //   debugger
+                        let dataId = $(data).find("#tableList").html();
+                        $("#tableList").html(dataId);
+                        //$('body').html(data);
+                   
+
+
+            }
+        });
+    });
+    $('#ExactSearch').click(function() {
+       
+        debugger
+
+        $.ajax({
+            url: "/Home/ExactSearch",
+            type: "POST",
+           
+            data: $("#searchForm").serialize(),
+            
+
+            success: function(data) {
+                debugger
+               
+                    console.log("hello")
+                   // debugger;
+                    //$.get("/Home/Index", function(data1) {
+                     //   debugger
+                        let dataId = $(data).find("#tableList").html();
+                        $("#tableList").html(dataId);
+                        //$('body').html(data);
+                   
+
+
+            }
+        });
+    });
+
+});
+</script>
+
